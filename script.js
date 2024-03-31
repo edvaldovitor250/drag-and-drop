@@ -1,3 +1,10 @@
+let areas = {
+    a:null,
+    b: null,
+    c:null
+}
+
+
 document.querySelectorAll('.item').forEach(item =>{
     item.addEventListener('dragstart', dragStart)
     item.addEventListener('dragend', dragEnd)
@@ -40,6 +47,7 @@ function drop(e) {
 
     if (!e.currentTarget.classList.contains('item')) {
         e.currentTarget.appendChild(dragItem)
+        updateAreas()
     }
 }
 
@@ -60,4 +68,22 @@ function dropNeutral(e) {
     e.currentTarget.classList.remove('hover')
     let dragItem = document.querySelector('.item.dragging')
     e.currentTarget.appendChild(dragItem)
+    updateAreas()
+}
+
+// Logic Functions
+
+function updateAreas(){
+    document.querySelectorAll('.area').forEach(area =>{
+      let name = area.getAttribute('data-name')
+
+      if (area.querySelector('.item') !== null) {
+        areas[name] = area.querySelector('.item').innerHTML;
+      } else{
+        areas[name] = null;
+      }
+
+
+    })
+
 }
